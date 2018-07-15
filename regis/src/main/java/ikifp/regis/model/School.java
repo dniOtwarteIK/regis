@@ -1,5 +1,7 @@
 package ikifp.regis.model;
 
+import java.util.List;
+
 import javax.persistence.*;
 
 @Entity
@@ -11,6 +13,9 @@ public class School {
 	
 	@Column
 	private String name;
+	
+	@OneToMany(cascade = CascadeType.ALL)
+	private List<Visitor> participantsAgents;
 
 	public int getNumber() {
 		return number;
