@@ -15,7 +15,7 @@ public class School {
 	private String name;
 	
 	@OneToMany(cascade = CascadeType.ALL)
-	private List<Visitor> participantsAgents;
+	private List<Visitor> visitors;
 
 	public int getNumber() {
 		return number;

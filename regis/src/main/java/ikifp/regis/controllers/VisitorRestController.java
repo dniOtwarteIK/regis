@@ -8,9 +8,9 @@ import ikifp.regis.persistence.VisitorService;
 
 @RestController
 @RequestMapping("/api/participants")
-public class ParticipantRrestController {
+public class VisitorRestController {
 	
     @Autowired
-    VisitorService participantService;
+    VisitorService visitorService;
 
 }
