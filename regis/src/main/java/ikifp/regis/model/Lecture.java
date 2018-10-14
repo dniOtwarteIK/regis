@@ -13,10 +13,10 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
-@Entity
-@Table(name = "lectures")
+//@Entity
+//@Table(name = "lectures")
 public class Lecture {
-
+/*
 	private int maxPeople = 120;
 
 	private boolean isAvailableForEnrollment = true;
@@ -68,5 +68,5 @@ public class Lecture {
 	public void setTime(int time) {
 		this.time = time;
 	}
-
+*/
 }

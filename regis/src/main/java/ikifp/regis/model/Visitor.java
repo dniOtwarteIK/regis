@@ -12,6 +12,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Visitor {
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private long id;
+	
+	@Column
 	private String email;
 
 	@Column
@@ -24,10 +28,19 @@ public class Visitor {
 	@Column
 	private int participantsNumber; // max 60
 
-	@ManyToMany(mappedBy = "visitorsList")
+/*	@ManyToMany(mappedBy = "visitorsList")
 	Set<Lecture> lectures = new HashSet<>();
-
+ */
 	// methods - getters and setters:
+	
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+	
 	public String getEmail() {
 		return email;
 	}
@@ -60,12 +73,13 @@ public class Visitor {
 		this.participantsNumber = participantsNumber;
 	}
 
-	public Set<Lecture> getLectures() {
+/*	public Set<Lecture> getLectures() {
 		return lectures;
 	}
 
 	public void setLectures(Set<Lecture> lectures) {
 		this.lectures = lectures;
 	}
+	*/
 
 }

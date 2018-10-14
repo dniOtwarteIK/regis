@@ -4,11 +4,11 @@ import java.util.List;
 
 import javax.persistence.*;
 
-@Entity
-@Table(name = "schools")
+//@Entity
+//@Table(name = "schools")
 public class School {
 	
-	@Id
+	/*@Id
 	private int number;
 	
 	@Column
@@ -32,6 +32,6 @@ public class School {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+	*/
 
 }

@@ -16,7 +16,7 @@ public class DatabaseConnector {
 	private Session session;
 	
 	private DatabaseConnector() {
-		//session = HibernateUtil.
+		session = HibernateUtil.getSessionFactory().openSession();
 	}
 	
     public void teardown() {
