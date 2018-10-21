@@ -19,7 +19,7 @@ public class Visitor {
 	private String email;
 
 	@Column
-	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+	//@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	private String password;
 
 	@Column

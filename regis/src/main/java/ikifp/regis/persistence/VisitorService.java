@@ -33,11 +33,16 @@ public class VisitorService {
 	}
 
 	public Visitor findVisitorByEmail(String email) {
-		Transaction transaction = connector.getSession().beginTransaction();
-		String hql = "FROM Visitor V WHERE V.email=" + email;
+		// Transaction transaction = connector.getSession().beginTransaction();
+		String hql = "FROM Visitor V WHERE V.email= :usrEmailParam";
 		Query query = connector.getSession().createQuery(hql);
-		Visitor visitor = (Visitor)query.list().get(0);
-		return visitor;
+		query.setParameter("usrEmailParam", email);
+		if (query.list().size() == 0) {
+			return null;
+		} else {
+			Visitor visitor = (Visitor) query.list().get(0);
+			return visitor;
+		}
 	}
 
 }
