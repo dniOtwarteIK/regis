@@ -25,11 +25,20 @@ public class VisitorService {
 		return connector.getSession().createCriteria(Visitor.class).list();
 	}
 
-	public Visitor addVisitor(Visitor visitor) {
-		Transaction transaction = connector.getSession().beginTransaction();
-		connector.getSession().save(visitor);
-		transaction.commit();
-		return visitor;
+	public boolean addVisitor(Visitor visitor) {
+		boolean created = false;
+		String hql = "FROM Visitor V WHERE V.email= :usrEmailParam";
+		Query query = connector.getSession().createQuery(hql);
+		query.setParameter("usrEmailParam", visitor.getEmail());
+		if (query.list().size() != 0) {
+			created = false;
+		} else {
+			Transaction transaction = connector.getSession().beginTransaction();
+			connector.getSession().save(visitor);
+			transaction.commit();
+			created = true;
+		}
+		return created;
 	}
 
 	public Visitor findVisitorByEmail(String email) {

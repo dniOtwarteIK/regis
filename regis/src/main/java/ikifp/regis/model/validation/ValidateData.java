@@ -10,6 +10,7 @@ public class ValidateData {
 		ValidationResult validationResult = new ValidationResult();
 		validationResult.addErrors(checkEmailCorrectness(visitor.getEmail()));
 		validationResult.addErrors(checkPasswordCorrectness(visitor.getPassword()));
+		validationResult.addErrors(checkParticipantsNumber(visitor.getParticipantsNumber()));
 		return validationResult;
 	}
 
@@ -24,9 +25,7 @@ public class ValidateData {
 		if (!email.matches("\\S+@\\S+\\.\\S+") || email.length() < 3) {
 			errors.add("incorrect e-mail address");
 		}
-
 		return errors;
-
 	}
 
 	private static ArrayList<String> checkPasswordCorrectness(String password) {
@@ -36,6 +35,14 @@ public class ValidateData {
 			errors.add("too short password");
 		}
 		return errors;
+	}
 
+	private static ArrayList<String> checkParticipantsNumber(int participantsNumber) {
+		ArrayList<String> errors = new ArrayList<>();
+		int maxParticipantsNumber = 60;
+		if (participantsNumber > maxParticipantsNumber) {
+			errors.add("too many participants - max is 60");
+		}
+		return errors;
 	}
 }

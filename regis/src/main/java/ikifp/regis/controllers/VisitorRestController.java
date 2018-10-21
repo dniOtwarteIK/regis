@@ -37,9 +37,8 @@ public class VisitorRestController {
 		if (validationResult.isDataValid() != true) {
 			return new ResponseEntity<>("incorrect data: " + validationResult.printErrors(), HttpStatus.BAD_REQUEST);
 		} else {
-			if (visitorService.findVisitorByEmail(visitor.getEmail()) == null) {
-				visitorService.addVisitor(visitor);
 
+			if (visitorService.addVisitor(visitor) == true) {
 				return new ResponseEntity<Visitor>(visitor, HttpStatus.CREATED);
 			} else {
 				return new ResponseEntity<>("Visitor with this email address has already registered in system",
