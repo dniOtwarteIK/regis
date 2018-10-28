@@ -54,4 +54,9 @@ public class VisitorService {
 		}
 	}
 
+	public void createVerificationToken(Visitor visitor, String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

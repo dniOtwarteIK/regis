@@ -36,7 +36,7 @@ public class VisitorRestController {
 
 	}
 
-	@RequestMapping(value = "test2", method = RequestMethod.POST)
+	@RequestMapping(value = "", method = RequestMethod.POST)
 	public ResponseEntity<?> registerVisitor(@RequestBody Visitor visitor, BindingResult result, 
 			  WebRequest request) {
 		
