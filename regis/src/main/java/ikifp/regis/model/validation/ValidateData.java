@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import ikifp.regis.model.Visitor;
 
 public class ValidateData {
+	//klasa sprawdzajaca logiczna poprawnosc danych - email haslo ilosc osob
 
 	public ValidationResult checkData(Visitor visitor) {
 		ValidationResult validationResult = new ValidationResult();

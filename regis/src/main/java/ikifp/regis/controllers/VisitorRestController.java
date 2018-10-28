@@ -3,13 +3,17 @@ package ikifp.regis.controllers;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.context.request.WebRequest;
 
+import ikifp.regis.controllers.event.OnRegistrationCompleteEvent;
 import ikifp.regis.model.Visitor;
 import ikifp.regis.model.validation.ValidateData;
 import ikifp.regis.model.validation.ValidationResult;
@@ -21,6 +25,9 @@ public class VisitorRestController {
 
 	@Autowired
 	VisitorService visitorService;
+	
+	@Autowired
+	ApplicationEventPublisher eventPublisher;
 
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public ResponseEntity<?> getAll() {
@@ -29,9 +36,10 @@ public class VisitorRestController {
 
 	}
 
-	@RequestMapping(value = "", method = RequestMethod.POST)
-	public ResponseEntity<?> registerVisitor(@RequestBody Visitor visitor) {
-
+	@RequestMapping(value = "test2", method = RequestMethod.POST)
+	public ResponseEntity<?> registerVisitor(@RequestBody Visitor visitor, BindingResult result, 
+			  WebRequest request) {
+		
 		ValidateData validator = new ValidateData();
 		ValidationResult validationResult = validator.checkData(visitor);
 		if (validationResult.isDataValid() != true) {
@@ -39,13 +47,21 @@ public class VisitorRestController {
 		} else {
 
 			if (visitorService.addVisitor(visitor) == true) {
+				try {
+					String appUrl = request.getContextPath();
+					eventPublisher.publishEvent(new OnRegistrationCompleteEvent(visitor));
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+				}
+				//return new ResponseEntity<>("ok "+appUrl, HttpStatus.CREATED);
 				return new ResponseEntity<Visitor>(visitor, HttpStatus.CREATED);
+				
 			} else {
 				return new ResponseEntity<>("Visitor with this email address has already registered in system",
 						HttpStatus.CONFLICT);
 			}
 		}
-
 	}
 
 	@RequestMapping(value = "/test", method = RequestMethod.GET)

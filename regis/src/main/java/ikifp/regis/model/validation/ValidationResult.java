@@ -3,6 +3,9 @@ package ikifp.regis.model.validation;
 import java.util.ArrayList;
 
 public class ValidationResult {
+	// klasa pomocnicza zbierajaca informacje o bledach ktore pojawily sei w
+	// trakcie weryfikacjii i informujaca czy proces walidacji przebiegl poprawnie
+
 	private ArrayList<String> errors;
 
 	public ValidationResult() {
@@ -24,13 +27,13 @@ public class ValidationResult {
 	public void addErrors(ArrayList<String> errors) {
 		this.errors.addAll(errors);
 	}
-	
+
 	public String printErrors() {
-		String errorsInString ="";
+		String errorsInString = "";
 		for (String err : this.errors) {
-			errorsInString=errorsInString+err+"\n";
+			errorsInString = errorsInString + err + "\n";
 		}
 		return errorsInString;
-		
+
 	}
 }
