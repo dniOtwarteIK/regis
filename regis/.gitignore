@@ -10,3 +10,4 @@
 src/main/resources/public/
 *.db
 etilqs*
+src/main/resources/application.properties
