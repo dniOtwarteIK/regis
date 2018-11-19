@@ -9,8 +9,8 @@
         <property name="dialect">ikifp.regis.persistence.SQLiteDialect</property>
         <property name="connection.driver_class">org.sqlite.JDBC</property>
         <property name="connection.url">jdbc:sqlite:regis-IK.db</property>
-        <property name="hibernate.hbm2ddl.auto">create</property>
-        <property name="connection.username"></property>
+<!--         <property name="hibernate.hbm2ddl.auto">create</property>
+ -->        <property name="connection.username"></property>
         <property name="connection.password"></property>
 
         <mapping class="ikifp.regis.model.Visitor"/>

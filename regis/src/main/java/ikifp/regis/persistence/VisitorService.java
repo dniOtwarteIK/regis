@@ -55,11 +55,11 @@ public class VisitorService {
 	}
 
 	public Visitor findVisitorByToken(String token) {
-		String hql = "FROM Visitor V WHERE V.token= :usrTokenParam";
+		String hql = "FROM VerificationToken V WHERE V.token= :usrTokenParam";
 		Query query = connector.getSession().createQuery(hql);
 		query.setParameter("usrTokenParam", token);
-		Visitor visitor = (Visitor) query.list().get(0);
-		return visitor;
+		VerificationToken verificationToken = (VerificationToken) query.list().get(0);
+		return verificationToken.getVisitor();
 	}
 
 	public boolean confirmRegistration(Visitor visitor) {

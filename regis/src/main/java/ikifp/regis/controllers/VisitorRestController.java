@@ -65,9 +65,16 @@ public class VisitorRestController {
 	}
 
 	//obsluga potwierdzenia maila przez linka
-	@RequestMapping(value="/regitrationConfirm.html?{token}", method=RequestMethod.GET)
+	@RequestMapping(value="/regitrationConfirm.html?token={token}", method=RequestMethod.GET)
 	public ResponseEntity<?> confirmRegistration(@PathVariable("token") String token){
 		Visitor visitor = visitorService.findVisitorByToken(token);
+		boolean isRegistrationConfirmed = visitorService.confirmRegistration(visitor);
+		return new ResponseEntity<>(isRegistrationConfirmed, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="/regitrationConfirm", method=RequestMethod.GET)
+	public ResponseEntity<?> confirmRegistrationTest(){
+		Visitor visitor = visitorService.findVisitorByToken("aaa");
 		boolean isRegistrationConfirmed = visitorService.confirmRegistration(visitor);
 		return new ResponseEntity<>(isRegistrationConfirmed, HttpStatus.OK);
 	}
