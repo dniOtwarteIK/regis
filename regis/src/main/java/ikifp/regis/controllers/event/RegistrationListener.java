@@ -10,6 +10,7 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 
 import ikifp.regis.model.Visitor;
+import ikifp.regis.persistence.VerificationTokenService;
 import ikifp.regis.persistence.VisitorService;
 
 @Component
@@ -17,6 +18,9 @@ public class RegistrationListener implements ApplicationListener<OnRegistrationC
 
     @Autowired
     private VisitorService visitorService;
+    
+    @Autowired
+    VerificationTokenService verificationTokenService;
   
     @Autowired
     private MessageSource messages;
@@ -32,7 +36,8 @@ public class RegistrationListener implements ApplicationListener<OnRegistrationC
 	private void confirmRegistration(OnRegistrationCompleteEvent event) {
 		Visitor visitor = event.getVisitor();
 		String token = UUID.randomUUID().toString();
-		visitorService.createVerificationToken(visitor, token);
+		//String token = "aaa";
+		verificationTokenService.createVerificationToken(visitor, token);
 		
 		String recipentEmail = visitor.getEmail();
 		String messageSubject = "Registration Confirmation";

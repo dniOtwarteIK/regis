@@ -41,6 +41,10 @@ public class VerificationToken {
 		return new Date(calendar.getTime().getTime());
 	}
 
+	public VerificationToken() {
+		this.expirationDate=calculateExpiration(EXPIRATION);
+	}
+	
 	public int getId() {
 		return id;
 	}

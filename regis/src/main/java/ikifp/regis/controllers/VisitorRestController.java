@@ -7,6 +7,7 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -51,7 +52,6 @@ public class VisitorRestController {
 					String appUrl = request.getContextPath();
 					eventPublisher.publishEvent(new OnRegistrationCompleteEvent(visitor));
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
 				}
 				//return new ResponseEntity<>("ok "+appUrl, HttpStatus.CREATED);
@@ -64,6 +64,14 @@ public class VisitorRestController {
 		}
 	}
 
+	//obsluga potwierdzenia maila przez linka
+	@RequestMapping(value="/regitrationConfirm.html?{token}", method=RequestMethod.GET)
+	public ResponseEntity<?> confirmRegistration(@PathVariable("token") String token){
+		Visitor visitor = visitorService.findVisitorByToken(token);
+		boolean isRegistrationConfirmed = visitorService.confirmRegistration(visitor);
+		return new ResponseEntity<>(isRegistrationConfirmed, HttpStatus.OK);
+	}
+	
 	@RequestMapping(value = "/test", method = RequestMethod.GET)
 	public String test() {
 
