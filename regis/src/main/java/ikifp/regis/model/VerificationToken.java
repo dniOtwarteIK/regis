@@ -15,7 +15,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "tokens")
-public class VerificationToken {
+public class VerificationToken { // Token for verification
 	private static final int EXPIRATION =60*24;
 	
 	@Id

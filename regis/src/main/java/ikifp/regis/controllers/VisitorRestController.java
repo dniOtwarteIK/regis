@@ -19,6 +19,7 @@ import ikifp.regis.model.Visitor;
 import ikifp.regis.model.validation.ValidateData;
 import ikifp.regis.model.validation.ValidationResult;
 import ikifp.regis.persistence.VisitorService;
+import ikifp.regis.persistence.dto.VisitorDto;
 
 @RestController
 @RequestMapping("/visitors")
@@ -32,8 +33,11 @@ public class VisitorRestController {
 
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public ResponseEntity<?> getAll() {
-		Collection<Visitor> visitors = visitorService.getAll();
-		return new ResponseEntity<Collection<Visitor>>(visitors, HttpStatus.OK);
+		Collection<VisitorDto> visitors = visitorService.getAll();
+/*		for(Visitor visitor : visitors) {
+			visitor.getToken().setVisitor(null);
+		}*/
+		return new ResponseEntity<Collection<VisitorDto>>(visitors, HttpStatus.OK);
 
 	}
 

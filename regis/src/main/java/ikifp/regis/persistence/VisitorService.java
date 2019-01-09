@@ -1,5 +1,6 @@
 package ikifp.regis.persistence;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import org.hibernate.Query;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import ikifp.regis.model.VerificationToken;
 import ikifp.regis.model.Visitor;
+import ikifp.regis.persistence.dto.VisitorDto;
 
 @Component("visitorService")
 public class VisitorService {
@@ -22,8 +24,23 @@ public class VisitorService {
 		connector = DatabaseConnector.getInstance();
 	}
 
-	public Collection<Visitor> getAll() {
-		return connector.getSession().createCriteria(Visitor.class).list();
+	public Collection<VisitorDto> getAll() {
+		//return connector.getSession().createCriteria(Visitor.class).list();
+		Collection<Visitor> visitors = connector.getSession().createCriteria(Visitor.class).list();
+		Collection<VisitorDto> visitorsDto = new ArrayList<>();
+		for (Visitor visitor : visitors) {
+			VisitorDto visitorDto = new VisitorDto();
+			visitorDto.setId(visitor.getId());
+			visitorDto.setEmail(visitor.getEmail());
+			visitorDto.setPhone(visitor.getPhone());
+			visitorDto.setParticipantsNumber(visitor.getParticipantsNumber());
+			visitorDto.setToken(visitor.getToken().getToken()); // get Verification token . get String token
+			visitorDto.setEnable(visitor.isEnable());
+			
+			visitorsDto.add(visitorDto);
+		}		
+		
+		return visitorsDto;
 	}
 
 	public boolean addVisitor(Visitor visitor) {
